@@ -87,9 +87,9 @@ encode = map (\x -> (length x, head x)) . pack
 
 -- 11
 
-data CountList a = Single a | Multiple Int a deriving Show
+data CountElement a = Single a | Multiple Int a deriving Show
 
-encodeModified :: Eq a => [a] -> [CountList a]
+encodeModified :: Eq a => [a] -> [CountElement a]
 encodeModified = map m . pack
     where m [x] = Single x
           m xs = Multiple (length xs) (head xs)
@@ -97,7 +97,7 @@ encodeModified = map m . pack
 
 -- 12
 
-decodeModified :: [CountList a] -> [a]
+decodeModified :: [CountElement a] -> [a]
 decodeModified = concat . map m
     where m (Single x) = [x]
           m (Multiple n x) = take n $ repeat x
@@ -105,7 +105,7 @@ decodeModified = concat . map m
 
 -- 13
 
-encodeDirect :: Eq a => [a] -> [CountList a]
+encodeDirect :: Eq a => [a] -> [CountElement a]
 encodeDirect = foldr connect []
     where connect x [] = [Single x]
           connect x (Single y:ys)
