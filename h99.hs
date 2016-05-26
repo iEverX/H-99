@@ -126,3 +126,9 @@ dupli = foldr (\i r -> i:i:r) []
 
 repli :: [a] -> Int -> [a]
 repli xs n = concat $ map (take n . repeat) xs
+
+
+-- 16
+
+dropEvery :: [a] -> Int -> [a]
+dropEvery xs n = map snd $ filter (\x -> fst x `mod` n /= 0) $ zip [1..] xs
