@@ -132,3 +132,36 @@ repli xs n = concat $ map (take n . repeat) xs
 
 dropEvery :: [a] -> Int -> [a]
 dropEvery xs n = map snd $ filter (\x -> fst x `mod` n /= 0) $ zip [1..] xs
+
+
+-- 17
+
+split :: [a] -> Int -> ([a], [a])
+split list n = sp list [] n'
+    where n' = if n > length list then length list else n
+          sp xs ys 0 = (ys, xs)
+          sp (x:xs) ys n = sp xs (x:ys) (n - 1)
+          
+          
+-- 18
+
+slice :: [a] -> Int -> Int -> [a]
+slice xs start end = drop (start - 1) $ take end xs
+
+
+-- 19
+rotate :: [a] -> Int -> [a]
+rotate list n
+  | n > 0 = drop n list ++ take n list
+  | n < 0 = rotate list (length list + n)
+  | otherwise = list
+
+-- 20
+
+removeAt :: Int -> [a] -> (a, [a])
+removeAt n list 
+  | n <= 0 || n > length list = error "error"
+  | otherwise = (s, b)
+    where (sf, sb) = splitAt n list
+          s = last sf
+          b = init sf ++ sb
