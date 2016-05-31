@@ -165,3 +165,19 @@ removeAt n list
     where (sf, sb) = splitAt n list
           s = last sf
           b = init sf ++ sb
+
+
+-- 21
+
+insertAt :: a -> [a] -> Int -> [a]
+insertAt x list pos
+  | pos < 0 = insertAt x list 0
+  | pos > 1 + length list = insertAt x list (1 + length list)
+  | otherwise = s ++ (x:b)
+        where (s, b) = splitAt (pos - 1) list
+        
+        
+-- 22
+
+range :: Int -> Int -> [Int]
+range x y = [x..y]
