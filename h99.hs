@@ -181,3 +181,25 @@ insertAt x list pos
 
 range :: Int -> Int -> [Int]
 range x y = [x..y]
+
+
+-- 31
+
+isPrime :: Int -> Bool
+isPrime n = all (/= 0) (map (n `mod`) (takeWhile (\x -> x * x <= n) [2..]))
+
+
+-- 32
+
+myGCD :: Int -> Int -> Int
+myGCD x y = gcd (abs x) (abs y)
+    where gcd m 0 = m
+          gcd m n = case compare m n of
+            GT -> gcd n (m `mod` n)
+            LT -> gcd n m
+
+
+-- 33
+
+coprime :: Int -> Int -> Bool
+coprime x y = myGCD x y == 1
