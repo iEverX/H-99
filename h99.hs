@@ -197,9 +197,16 @@ myGCD x y = gcd (abs x) (abs y)
           gcd m n = case compare m n of
             GT -> gcd n (m `mod` n)
             LT -> gcd n m
+            EQ -> m
 
 
 -- 33
 
 coprime :: Int -> Int -> Bool
 coprime x y = myGCD x y == 1
+
+
+-- 34
+
+totient :: Int -> Int
+totient n = length $ filter (coprime n) [1..n]
