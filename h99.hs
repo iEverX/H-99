@@ -1,3 +1,5 @@
+import Data.List(group)
+
 -- 1
 
 myLast :: [a] -> a
@@ -210,3 +212,23 @@ coprime x y = myGCD x y == 1
 
 totient :: Int -> Int
 totient n = length $ filter (coprime n) [1..n]
+
+
+-- helpers
+
+pfs :: Int -> Int -> [Int]
+pfs _ 1 = []
+pfs x n = if r == 0
+         then x: pfs x d
+         else pfs (x + 1) n
+      where (d, r) = n `quotRem` x
+
+-- 35
+
+primeFactors :: Int -> [Int]
+primeFactors = pfs 2
+
+
+-- 36
+primeFactorsMult :: Int -> [(Int, Int)]
+primeFactorsMult = map (\x -> (head x, length x)) . group . pfs 2
