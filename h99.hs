@@ -232,3 +232,8 @@ primeFactors = pfs 2
 -- 36
 primeFactorsMult :: Int -> [(Int, Int)]
 primeFactorsMult = map (\x -> (head x, length x)) . group . pfs 2
+
+
+-- 37
+phi :: Int -> Int
+phi = floor . product . map (\(x, y) -> (fromIntegral x - 1) * (fromIntegral x) ** (fromIntegral y - 1)) . primeFactorsMult 
