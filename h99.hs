@@ -1,4 +1,4 @@
-import Data.List(group)
+import Data.List(group, partition)
 
 -- 1
 
@@ -237,3 +237,25 @@ primeFactorsMult = map (\x -> (head x, length x)) . group . pfs 2
 -- 37
 phi :: Int -> Int
 phi = floor . product . map (\(x, y) -> (fromIntegral x - 1) * (fromIntegral x) ** (fromIntegral y - 1)) . primeFactorsMult 
+
+
+-- 39
+primesR :: Int -> Int -> [Int]
+primesR lower upper = filter notzeros [max 2 lower .. upper]
+      where notzeros x = all (\p -> x == p || x `rem` p /= 0) primes
+            primes = ps $ takeWhile (\x -> x * x <= upper) [2..upper]
+            ps [] = []      
+            ps (x:xs) = x : ps [y | y <- xs, y `rem` x /= 0]
+
+-- 40
+goldbach :: Int -> (Int, Int)
+goldbach n = if isPrime half then (half, half) else find as (reverse bs)
+      where half = round (fromIntegral n / 2)
+            find (x:xs) (y:ys)
+              | x + y == n = (x, y)
+              | x + y > n = find (x:xs) ys
+              | otherwise = find xs (y:ys)
+            (as, bs) = partition (\x -> fromIntegral x <= half) primes
+            primes = ps [2..n-2]
+            ps [] = []
+            ps (x:xs) = x : ps [y | y <- xs, y `rem` x /= 0]
