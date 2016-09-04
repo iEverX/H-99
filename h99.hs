@@ -259,3 +259,7 @@ goldbach n = if isPrime half then (half, half) else find as (reverse bs)
             primes = ps [2..n-2]
             ps [] = []
             ps (x:xs) = x : ps [y | y <- xs, y `rem` x /= 0]
+
+-- 41
+goldbachList :: Int -> Int -> [(Int, Int)]
+goldbachList b e = map goldbach $ filter (\x -> x `rem` 2 == 0) [b..e]
